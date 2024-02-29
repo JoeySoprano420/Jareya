@@ -60,7 +60,7 @@ Jareya is an open-source project, and contributions are welcome. Feel free to su
 
 **License:**
 
-Jareya is licensed under [insert license here]. Please review the license file before using or contributing to the project.
+Jareya is licensed under [QSRLC]. Please review the license file before using or contributing to the project.
 
 **Acknowledgments:**
 
