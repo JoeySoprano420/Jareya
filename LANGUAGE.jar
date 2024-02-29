@@ -1,3 +1,38 @@
+program { # Import relevant libraries
+    import pytk
+    import torch
+    import tkinter as tk
+    import cpp_compiler
+
+    # Define a function to multiply two numbers using pytk
+    define_function("multiply_numbers") {
+        accept_parameters(number1, number2)
+        result = pytk.multiply(number1, number2) # Use tensor multiplication
+        return result
+    }
+
+    # Define a function to greet the user
+    define_function("greet_user") {
+        accept_parameters(name)
+        display("Hello, " + name + "!")
+    }
+
+    # Take user input for name using tkinter
+    user_input = tk.get_input("Enter your name: ") # Create a GUI for input
+
+    # Call the greeting function
+    greet_user(user_input)
+
+    # Perform a multiplication operation using the defined function
+    result = multiply_numbers(5, 3)
+
+    # Display result
+    display("Result of multiplication: " + result)
+
+    # Compile the code into an executable file using cpp_compiler
+    cpp_compiler.compile(program)
+}
+
 ```apl
 program {
     # Import relevant libraries
