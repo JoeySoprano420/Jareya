@@ -5,7 +5,31 @@
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
-
+jareya-setup:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Cache Jareya compiler
+      uses: actions/cache@v2
+      with:
+        path: ~/.jareya
+        key: ${{ runner.os }}-jareya-${{ hashFiles('**/*.jy') }}
+        restore-keys: |
+          ${{ runner.os }}-jareya-
+    - name: Install Jareya compiler
+      run: |
+        if [ ! -d ~/.jareya ]; then
+          curl -L https://jareya.io/install.sh | bash
+        fi
+        echo "$HOME/.jareya/bin" >> $GITHUB_PATH
+    - name: Run Jareya code
+      run: jareya main.jy
+    - name: Upload Jareya artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: jareya-artifacts
+        path: artifacts/
 name: Upload Python Package
 
 on:
