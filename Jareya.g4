@@ -43,6 +43,36 @@ lexer = MyLanguageLexer(input_stream)
 tokens = CommonTokenStream(lexer)
 parser = MyLanguageParser(tokens)
 tree = parser.program()
+class MyIRGenerator(MyLanguageBaseVisitor):
+    def __init__(self):
+        self.ir_code = []
+
+    def visitDeclaration(self, ctx):
+        # Do nothing for now, can be extended for LLVM IR generation
+        pass
+
+    def visitAssignment(self, ctx):
+        var_name = ctx.getChild(0).getText()
+        expr_code = self.visit(ctx.getChild(2))
+
+        llvm_code = f"{var_name} = {expr_code}"
+        self.ir_code.append(llvm_code)
+
+    def visitExpression(self, ctx):
+        # Simplified expression handling, adjust based on your language
+        left_code = self.visit(ctx.getChild(0))
+        right_code = self.visit(ctx.getChild(2))
+        return f"{left_code} + {right_code}"
+
+    # Implement similar methods for other rules
+
+# Usage
+ir_generator = MyIRGenerator()
+llvm_ir_code = ir_generator.visit(tree)
+
+# Print or save the LLVM IR code as needed
+for code_line in ir_generator.ir_code:
+    print(code_line)
 
 semantic_analyzer = MySemanticAnalyzer()
 semantic_analyzer.visit(tree)
