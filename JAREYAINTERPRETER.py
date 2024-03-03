@@ -29,3 +29,29 @@ def main():
 
 if __name__ == "__main__":
     main()
+# Main.py
+from antlr4 import CommonTokenStream, InputStream
+from MyLanguageLexer import MyLanguageLexer
+from MyLanguageParser import MyLanguageParser
+from MyInterpreter import MySemanticAnalyzer, MyIRGenerator
+
+# Read input source code
+source_code = "your source code here"
+
+# Create lexer and parser
+lexer = MyLanguageLexer(InputStream(source_code))
+tokens = CommonTokenStream(lexer)
+parser = MyLanguageParser(tokens)
+
+# Parse source code
+tree = parser.program()
+
+# Semantic analysis
+semantic_analyzer = MySemanticAnalyzer()
+semantic_analyzer.visit(tree)
+
+# Generate LLVM IR code
+ir_generator = MyIRGenerator()
+llvm_ir_code = ir_generator.visit(tree)
+
+# ... (execute or save the LLVM IR code)
