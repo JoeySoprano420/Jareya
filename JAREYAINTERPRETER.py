@@ -55,3 +55,25 @@ ir_generator = MyIRGenerator()
 llvm_ir_code = ir_generator.visit(tree)
 
 # ... (execute or save the LLVM IR code)
+# MyInterpreter.py
+class MySemanticAnalyzer(MyLanguageBaseVisitor):
+    # ... (semantic analysis logic)
+
+class MyIRGenerator(MyLanguageBaseVisitor):
+    # ... (LLVM IR generation logic)
+
+# Usage
+lexer = MyLanguageLexer(input_stream)
+tokens = CommonTokenStream(lexer)
+parser = MyLanguageParser(tokens)
+tree = parser.program()
+
+semantic_analyzer = MySemanticAnalyzer()
+semantic_analyzer.visit(tree)
+
+ir_generator = MyIRGenerator()
+llvm_ir_code = ir_generator.visit(tree)
+
+# Print or save the LLVM IR code as needed
+for code_line in ir_generator.ir_code:
+    print(code_line)
